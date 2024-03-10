@@ -1,0 +1,21 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rect
+actor User
+
+rectangle "CopilotUser" {
+    usecase (Login) as UC1
+    usecase (Logout) as UC2
+    usecase (ViewProfile) as UC3
+    usecase (EditProfile) as UC4
+    usecase (ViewDashboard) as UC5
+
+
+    User --> UC1
+    User --> UC2
+
+
+}
+
+@enduml

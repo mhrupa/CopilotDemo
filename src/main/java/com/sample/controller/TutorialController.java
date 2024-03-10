@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sample.entity.Tutorial;
 import com.sample.service.TutorialService;
 
-
 @RestController
 @RequestMapping("/api")
 public class TutorialController {
@@ -28,7 +27,6 @@ public class TutorialController {
   public TutorialController(TutorialService tutorialService) {
     this.tutorialService = tutorialService;
   }
-
 
   @GetMapping("/tutorials")
   public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = false) String title) {
@@ -53,7 +51,7 @@ public class TutorialController {
   @GetMapping("/tutorials/{id}")
   public ResponseEntity<Tutorial> getTutorialById(@PathVariable("id") long id) {
     Optional<Tutorial> tutorialData = tutorialService.findById(id);
-    
+
     if (tutorialData.isPresent()) {
       return new ResponseEntity<>(tutorialData.get(), HttpStatus.OK);
     } else {
@@ -64,8 +62,11 @@ public class TutorialController {
   @PostMapping("/tutorials")
   public ResponseEntity<Tutorial> createTutorial(@RequestBody Tutorial tutorial) {
     try {
-      Tutorial tutorialObj = tutorialService
-          .save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), false));
+      Tutorial tutorialObj = tutorialService.save(Tutorial.builder()
+          .title(tutorial.getTitle())
+          .description(tutorial.getDescription())
+          .published(false)
+          .build());
       return new ResponseEntity<>(tutorialObj, HttpStatus.CREATED);
     } catch (Exception e) {
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

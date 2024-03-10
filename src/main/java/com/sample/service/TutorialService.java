@@ -44,4 +44,12 @@ public class TutorialService {
   public List<Tutorial> findByPublished(boolean b) {
     return tutorialRepository.findByPublished(b);
   }
+  
+  // method for adding two integer inputs
+  public int add(int a, int b) {
+    return a + b;
+  }
+
+  
+
 }
