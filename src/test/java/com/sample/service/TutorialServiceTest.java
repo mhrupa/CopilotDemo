@@ -158,35 +158,4 @@ class TutorialServiceTest {
         verify(tutorialRepository, times(1)).findByPublished(true);
     }
 
-    @Test
-    void testAdd() {
-        int a = 1;
-        int b = 2;
-
-        int result = tutorialService.add(a, b);
-
-        assertEquals(3, result);
-    }
-
-    // add parameterized test for add method
-    @ParameterizedTest
-    @CsvSource({
-            "1, 2, 3",
-            "2, 3, 5",
-            "3, 4, 7"
-    })
-    void testAdd(int a, int b, int expected) {
-        int result = tutorialService.add(a, b);
-
-        assertEquals(expected, result);
-    }
-
-    // add parameterized test for add method ussing csv file
-    @ParameterizedTest
-    @CsvFileSource(resources = "/data.csv", numLinesToSkip = 1)
-    void testAddUsingCsv(int a, int b, int expected) {
-        int result = tutorialService.add(a, b);
-
-        assertEquals(expected, result);
-    }
 }

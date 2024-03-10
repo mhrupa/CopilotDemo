@@ -1,12 +1,12 @@
 package com.sample.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.sample.entity.Tutorial;
 import com.sample.repository.TutorialRepository;
+import java.util.Optional;
 
 @Service
 public class TutorialService {
@@ -21,16 +21,9 @@ public class TutorialService {
     return tutorialRepository.findAll();
   }
 
-  public List<Tutorial> findByTitleContaining(String title) {
-    return tutorialRepository.findByTitleContaining(title);
-  }
-
+  @SuppressWarnings("null")
   public Tutorial save(Tutorial tutorial) {
     return tutorialRepository.save(tutorial);
-  }
-
-  public Optional<Tutorial> findById(long id2) {
-    return tutorialRepository.findById(id2);
   }
 
   public void deleteById(long id2) {
@@ -44,12 +37,13 @@ public class TutorialService {
   public List<Tutorial> findByPublished(boolean b) {
     return tutorialRepository.findByPublished(b);
   }
-  
-  // method for adding two integer inputs
-  public int add(int a, int b) {
-    return a + b;
+
+  public List<Tutorial> findByTitleContaining(String title) {
+    return tutorialRepository.findByTitleContaining(title);
   }
 
-  
+  public Optional<Tutorial> findById(long id) {
+    return tutorialRepository.findById(id);
+  }
 
 }

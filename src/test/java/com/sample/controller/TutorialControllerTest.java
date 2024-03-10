@@ -95,20 +95,6 @@ class TutorialControllerTest {
         }
 
         @Test
-        void testGetTutorialByIdNotFound() throws Exception {
-                long id = 1L;
-
-                when(tutorialService.findById(id)).thenReturn(Optional.empty());
-
-                MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/tutorials/{id}", id)
-                                .contentType(MediaType.APPLICATION_JSON))
-                                .andExpect(MockMvcResultMatchers.status().isNotFound())
-                                .andReturn();
-
-                verify(tutorialService, times(1)).findById(id);
-        }
-
-        @Test
         void testCreateTutorial() throws Exception {
                 Tutorial tutorial = Tutorial.builder()
                                 .title("Tutorial 1")

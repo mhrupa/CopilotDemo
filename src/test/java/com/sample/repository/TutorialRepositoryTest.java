@@ -11,9 +11,6 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -157,33 +154,4 @@ class TutorialServiceTest {
         verify(tutorialRepository, times(1)).findByPublished(true);
     }
 
-    @Test
-    void testAdd() {
-        int a = 1;
-        int b = 2;
-
-        int result = tutorialService.add(a, b);
-
-        assertEquals(3, result);
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-            "1, 2, 3",
-            "2, 3, 5",
-            "3, 4, 7"
-    })
-    void testAdd(int a, int b, int expected) {
-        int result = tutorialService.add(a, b);
-
-        assertEquals(expected, result);
-    }
-
-    @ParameterizedTest
-    @CsvFileSource(resources = "/data.csv", numLinesToSkip = 1)
-    void testAddUsingCsv(int a, int b, int expected) {
-        int result = tutorialService.add(a, b);
-
-        assertEquals(expected, result);
-    }
 }
