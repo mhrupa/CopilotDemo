@@ -40,6 +40,7 @@ class TutorialControllerTest {
                 MockitoAnnotations.openMocks(this);
         }
 
+        @SuppressWarnings("null")
         @Test
         void testGetAllTutorials() throws Exception {
                 List<Tutorial> tutorials = new ArrayList<>();
@@ -63,7 +64,7 @@ class TutorialControllerTest {
                                 .andExpect(MockMvcResultMatchers.status().isOk())
                                 .andReturn();
 
-                String responseBody = result.getResponse().getContentAsString();
+                result.getResponse().getContentAsString();
                 // Add assertions for the response body
 
                 verify(tutorialService, times(1)).findAll();
@@ -71,6 +72,7 @@ class TutorialControllerTest {
 
         // Add other test methods
 
+        @SuppressWarnings("null")
         @Test
         void testGetTutorialById() throws Exception {
                 long id = 1L;
@@ -88,12 +90,13 @@ class TutorialControllerTest {
                                 .andExpect(MockMvcResultMatchers.status().isOk())
                                 .andReturn();
 
-                String responseBody = result.getResponse().getContentAsString();
+                result.getResponse().getContentAsString();
                 // Add assertions for the response body
 
                 verify(tutorialService, times(1)).findById(id);
         }
 
+        @SuppressWarnings("null")
         @Test
         void testCreateTutorial() throws Exception {
                 Tutorial tutorial = Tutorial.builder()
@@ -110,23 +113,19 @@ class TutorialControllerTest {
                                 .andExpect(MockMvcResultMatchers.status().isCreated())
                                 .andReturn();
 
-                String responseBody = result.getResponse().getContentAsString();
+                result.getResponse().getContentAsString();
                 // Add assertions for the response body
 
                 verify(tutorialService, times(1)).save(any(Tutorial.class));
         }
 
+        @SuppressWarnings("null")
         @Test
         void testCreateTutorial_InternalServerError() throws Exception {
-                Tutorial tutorial = Tutorial.builder()
-                                .title("Tutorial 1")
-                                .description("Description 1")
-                                .published(false)
-                                .build();
 
                 when(tutorialService.save(any(Tutorial.class))).thenThrow(new RuntimeException());
 
-                MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/tutorials")
+                mockMvc.perform(MockMvcRequestBuilders.post("/api/tutorials")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content("{\"title\":\"Tutorial 1\",\"description\":\"Description 1\",\"published\":false}"))
                                 .andExpect(MockMvcResultMatchers.status().isInternalServerError())
@@ -135,6 +134,7 @@ class TutorialControllerTest {
                 verify(tutorialService, times(1)).save(any(Tutorial.class));
         }
 
+        @SuppressWarnings("null")
         @Test
         void testUpdateTutorial() throws Exception {
                 long id = 1L;
@@ -161,20 +161,21 @@ class TutorialControllerTest {
                                 .andExpect(MockMvcResultMatchers.status().isOk())
                                 .andReturn();
 
-                String responseBody = result.getResponse().getContentAsString();
+                result.getResponse().getContentAsString();
                 // Add assertions for the response body
 
                 verify(tutorialService, times(1)).findById(id);
                 verify(tutorialService, times(1)).save(any(Tutorial.class));
         }
 
+        @SuppressWarnings("null")
         @Test
         void testUpdateTutorial_NotFound() throws Exception {
                 long id = 1L;
 
                 when(tutorialService.findById(id)).thenReturn(Optional.empty());
 
-                MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put("/api/tutorials/{id}", id)
+                mockMvc.perform(MockMvcRequestBuilders.put("/api/tutorials/{id}", id)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content("{\"title\":\"Updated Tutorial\",\"description\":\"Updated Description\",\"published\":false}"))
                                 .andExpect(MockMvcResultMatchers.status().isNotFound())
@@ -184,11 +185,12 @@ class TutorialControllerTest {
                 verify(tutorialService, times(0)).save(any(Tutorial.class));
         }
 
+        @SuppressWarnings("null")
         @Test
         void testDeleteTutorial_Success() throws Exception {
                 long id = 1L;
 
-                MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/tutorials/{id}", id)
+                mockMvc.perform(MockMvcRequestBuilders.delete("/api/tutorials/{id}", id)
                                 .contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(MockMvcResultMatchers.status().isNoContent())
                                 .andReturn();
@@ -196,13 +198,14 @@ class TutorialControllerTest {
                 verify(tutorialService, times(1)).deleteById(id);
         }
 
+        @SuppressWarnings("null")
         @Test
         void testDeleteTutorial_InternalServerError() throws Exception {
                 long id = 1L;
 
                 doThrow(new RuntimeException()).when(tutorialService).deleteById(id);
 
-                MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/tutorials/{id}", id)
+                mockMvc.perform(MockMvcRequestBuilders.delete("/api/tutorials/{id}", id)
                                 .contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(MockMvcResultMatchers.status().isInternalServerError())
                                 .andReturn();
@@ -211,6 +214,7 @@ class TutorialControllerTest {
         }
 
         @Test
+        @SuppressWarnings("null")
         void testDeleteAllTutorials_Success() throws Exception {
                 mockMvc.perform(MockMvcRequestBuilders.delete("/api/tutorials")
                                 .contentType(MediaType.APPLICATION_JSON))
@@ -221,6 +225,7 @@ class TutorialControllerTest {
         }
 
         @Test
+        @SuppressWarnings("null")
         void testDeleteAllTutorials_InternalServerError() throws Exception {
                 doThrow(new RuntimeException()).when(tutorialService).deleteAll();
 
@@ -233,6 +238,7 @@ class TutorialControllerTest {
         }
 
         @Test
+        @SuppressWarnings("null")
         void testFindByPublished_ReturnsTutorials() throws Exception {
                 List<Tutorial> tutorials = new ArrayList<>();
                 tutorials.add(Tutorial.builder()
@@ -255,19 +261,20 @@ class TutorialControllerTest {
                                 .andExpect(MockMvcResultMatchers.status().isOk())
                                 .andReturn();
 
-                String responseBody = result.getResponse().getContentAsString();
+                result.getResponse().getContentAsString();
                 // Add assertions for the response body
 
                 verify(tutorialService, times(1)).findByPublished(true);
         }
 
         @Test
+        @SuppressWarnings("null")
         void testFindByPublished_ReturnsNoContent() throws Exception {
                 List<Tutorial> tutorials = new ArrayList<>();
 
                 when(tutorialService.findByPublished(true)).thenReturn(tutorials);
 
-                MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/tutorials/published")
+                mockMvc.perform(MockMvcRequestBuilders.get("/api/tutorials/published")
                                 .contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(MockMvcResultMatchers.status().isNoContent())
                                 .andReturn();
@@ -276,10 +283,11 @@ class TutorialControllerTest {
         }
 
         @Test
+        @SuppressWarnings("null")
         void testFindByPublished_InternalServerError() throws Exception {
                 when(tutorialService.findByPublished(true)).thenThrow(new RuntimeException());
 
-                MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/tutorials/published")
+                mockMvc.perform(MockMvcRequestBuilders.get("/api/tutorials/published")
                                 .contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(MockMvcResultMatchers.status().isInternalServerError())
                                 .andReturn();
@@ -288,6 +296,7 @@ class TutorialControllerTest {
         }
 
         @Test
+        @SuppressWarnings("null")
         void testGetAllTutorials_WithTitle() throws Exception {
                 String title = "Tutorial";
                 List<Tutorial> tutorials = new ArrayList<>();
@@ -312,17 +321,18 @@ class TutorialControllerTest {
                                 .andExpect(MockMvcResultMatchers.status().isOk())
                                 .andReturn();
 
-                String responseBody = result.getResponse().getContentAsString();
+                result.getResponse().getContentAsString();
                 // Add assertions for the response body
 
                 verify(tutorialService, times(1)).findByTitleContaining(title);
         }
 
         @Test
+        @SuppressWarnings("null")
         void testGetAllTutorials_NoContent() throws Exception {
                 when(tutorialService.findAll()).thenReturn(Collections.emptyList());
 
-                MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/tutorials")
+                mockMvc.perform(MockMvcRequestBuilders.get("/api/tutorials")
                                 .contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(MockMvcResultMatchers.status().isNoContent())
                                 .andReturn();
@@ -331,10 +341,11 @@ class TutorialControllerTest {
         }
 
         @Test
+        @SuppressWarnings("null")
         void testGetAllTutorials_InternalServerError() throws Exception {
                 when(tutorialService.findAll()).thenThrow(new RuntimeException());
 
-                MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/tutorials")
+                mockMvc.perform(MockMvcRequestBuilders.get("/api/tutorials")
                                 .contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(MockMvcResultMatchers.status().isInternalServerError())
                                 .andReturn();

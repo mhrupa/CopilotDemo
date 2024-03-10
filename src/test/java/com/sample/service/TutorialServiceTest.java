@@ -10,12 +10,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.sample.entity.Tutorial;
 import com.sample.repository.TutorialRepository;
@@ -84,6 +80,7 @@ class TutorialServiceTest {
     }
 
     @Test
+    @SuppressWarnings("null")
     void testSave() {
         Tutorial tutorial = Tutorial.builder()
                 .id(1L)

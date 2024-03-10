@@ -80,6 +80,7 @@ class TutorialServiceTest {
     }
 
     @Test
+    @SuppressWarnings("null")
     void testSave() {
         Tutorial tutorial = Tutorial.builder()
                 .id(1L)
